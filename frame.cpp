@@ -1,5 +1,6 @@
 #include "frame.hpp"
 #include "point.hpp"
+#include "subFrame.hpp"
 using namespace std;
 
 
@@ -47,4 +48,8 @@ void Frame::updateSubFrame() {
     }
 
     this->nbPtsNotUpdate = 0;
+}
+
+SubFrame* Frame::getsubframe(int index) {
+    //retourn le bon subFrame
 }

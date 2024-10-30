@@ -1,5 +1,6 @@
 #include <vector>
 #include "point.hpp"
+#include "subFrame.hpp"
 
 
 class Frame {
@@ -15,5 +16,5 @@ class Frame {
         Frame();
         ~Frame();
         void ajouterPoint(Point* point);
-        //getsubframe(int index) <- retourn la subframe
+        SubFrame* getsubframe(int index);
 };
