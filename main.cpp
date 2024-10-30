@@ -7,10 +7,14 @@ int main() {
     vector<double> c2 = {1,24,-6};
     vector<double> c3 = {2,48,-12};
     vector<double> c4 = {2,5,3};
-    Point* p1 = new Point(6.5,c1);
-    Point* p2 = new Point(13,c2);
-    Point* p3 = new Point(13,c3);
-    Point* p4 = new Point(13,c4);
+
+    vector<double> v1 = {6.5};
+    vector<double> v2 = {13};
+
+    Point* p1 = new Point(v1,c1);
+    Point* p2 = new Point(v2,c2);
+    Point* p3 = new Point(v2,c3);
+    Point* p4 = new Point(v2,c4);
     
     vector<double> a = p1->getCoord();
     vector<double> b = p2->getCoord();

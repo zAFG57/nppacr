@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-Point::Point(double valeur, vector<double> coord) {
+Point::Point(vector<double> valeur, vector<double> coord) {
     this->coord = coord;
     this->valeur = valeur;
 }
@@ -17,7 +17,7 @@ vector<double> Point::getCoord() {
     return this->coord;
 }
 
-double Point::getVal() {
+vector<double> Point::getVal() {
     return this->valeur;
 }
 
