@@ -13,6 +13,10 @@ void Point::setSuivant(Point* suivant) {
     this->suivant = suivant;
 }
 
+Point* Point::getSuivant() {
+    return this->suivant;
+}
+
 vector<double> Point::getCoord() {
     return this->coord;
 }

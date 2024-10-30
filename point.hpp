@@ -10,6 +10,7 @@ class Point {
         Point(vector<double> valeur, vector<double> coord);
         ~Point();
         void setSuivant(Point* suivant);
+        Point* getSuivant();
         vector<double> getCoord();
         vector<double> getVal();
         double getDistFrom(Point* pts);
