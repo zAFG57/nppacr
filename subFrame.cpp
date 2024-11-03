@@ -1,5 +1,11 @@
-#include "subFrame.hpp"
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
+#endif
+#ifndef SUBFRAME_H
+#define SUBFRAME_h
+#include "subframe.hpp"
+#endif
 using namespace std;
 
 
@@ -17,4 +23,8 @@ Point* SubFrame::getFirstPts() {
 
 bool SubFrame::isStellInSubFrame(Point* pts) {
     return pts != this->ptsStop;
+}
+
+vector<Point*> SubFrame::getNPlusProche(Point* pts, int nbPst) {
+    return vector<Point*>{pts};
 }

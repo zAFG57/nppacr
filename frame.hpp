@@ -1,7 +1,13 @@
 #include <vector>
-#include "point.hpp"
-#include "subFrame.hpp"
 
+#ifndef POINT_H
+#define POINT_H
+#include "point.hpp"
+#endif
+#ifndef SUBFRAME_H
+#define SUBFRAME_H
+#include "subFrame.hpp"
+#endif
 
 class Frame {
     private:
@@ -17,4 +23,7 @@ class Frame {
         ~Frame();
         void ajouterPoint(Point* point);
         SubFrame* getsubframe(int index);
+        vector<Point*> getNPlusProche(Point* pts, int nbPts);
 };
+
+vector<Point*> getPtsSubFrame(SubFrame* sub, Point* pts, int nbPts);

@@ -1,4 +1,7 @@
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
+#endif
 #include <vector>
 using namespace std;
 

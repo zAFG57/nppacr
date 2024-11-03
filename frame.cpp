@@ -1,13 +1,25 @@
-#include "frame.hpp"
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
-#include "subFrame.hpp"
+#endif
+#ifndef FRAME_H
+#define FRAME_H
+#include "frame.hpp"
+#endif
+#ifndef SUBFRAME_H
+#define SUBFRAME_h
+#include "subframe.hpp"
+#endif
+#include <thread>
+#include <future>
+#include <iostream>
 using namespace std;
 
 
 Frame::Frame() {
     this->nbPts = 0;
     this->subFrame = {};
-    this->nbThread = 1; // à changer par le vrai nombre de thread disponible
+    this->nbThread = thread::hardware_concurrency();
     this->nbPtsNotUpdate=0;
 }
 
@@ -46,10 +58,56 @@ void Frame::updateSubFrame() {
         }
         this->subFrame.at(i) = pts;
     }
-
     this->nbPtsNotUpdate = 0;
 }
 
 SubFrame* Frame::getsubframe(int index) {
-    //retourn le bon subFrame
+    if (index>=this->subFrame.size()) return nullptr;
+    Point* ptsStop;
+    int nbPts = (this->nbPts - this->nbPtsNotUpdate)/this->nbThread;
+    if (index == this->nbThread-1 || index == this->subFrame.size()-1) {
+        ptsStop = nullptr;
+        nbPts +=  this->nbPtsNotUpdate;
+    } else {
+        ptsStop = this->subFrame.at(index+1);
+    }
+    Point* ptsStart;
+    ptsStart = this->subFrame.at(index);
+    return new SubFrame(ptsStart,ptsStop,nbPts);
+}
+
+vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
+    vector<vector<Point*>> preselection;
+    vector<thread> coeur;
+    vector<SubFrame*> subFrames;
+    vector<future<vector<Point*>>> futures;
+    int i;
+    for (i=0; i<this->nbThread; i++) {
+        subFrames.push_back(this->getsubframe(i));
+        if (subFrames.at(i) == nullptr) break;
+        promise<vector<Point*>> prom;
+        futures.push_back(prom.get_future());
+        coeur.emplace_back([sub = subFrames.at(i), pts, i, prom = move(prom)]() mutable {
+            prom.set_value(getPtsSubFrame(sub, pts, i));
+        });
+    }
+    i--;
+    for (i=i; i>0; i--) {
+        if (subFrames.at(i) != nullptr) {
+            coeur.at(i).join();
+        }
+    }
+    cout << "joined  \n";
+    vector<Point*> a;
+    for (i=i; i<this->nbThread; i++) {
+        if (subFrames.at(i) == nullptr) break;
+        a.push_back(futures.at(i).get().at(0));
+        cout << a.at(a.size()-1)->getVal().at(0);
+        cout << "\tici\n";
+    }
+    return vector<Point*>();
+}
+
+vector<Point*> getPtsSubFrame(SubFrame* sub, Point* pts, int nbPts) {
+    return sub->getNPlusProche(pts,nbPts);
 }

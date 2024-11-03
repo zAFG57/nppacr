@@ -1,5 +1,8 @@
 #include <vector>
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
+#endif
 using namespace std;
 
 class SubFrame {
@@ -12,4 +15,5 @@ class SubFrame {
         ~SubFrame();
         Point* getFirstPts();
         bool isStellInSubFrame(Point* pts);
+        vector<Point*> getNPlusProche(Point* pts, int nbPts);
 };
