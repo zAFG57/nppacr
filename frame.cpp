@@ -82,8 +82,7 @@ vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
     vector<SubFrame*> subFrames;
     vector<future<vector<Point*>>> futures;
     vector<Point*> ptsCandida;
-    int i;
-    for (i=0; i<this->nbThread; i++) {
+    for (int i=0; i<this->nbThread; i++) {
         subFrames.push_back(this->getsubframe(i));
         if (subFrames.at(i) == nullptr) break;
         promise<vector<Point*>> prom;
@@ -92,18 +91,17 @@ vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
             prom.set_value(getPtsSubFrame(sub, pts, nbPts));
         });
     }
-    i--;
-    for (i=i; i>0; i--) {
-        if (subFrames.at(i) != nullptr) {
-            coeur.at(i).join();
+    for (auto& t : coeur) {
+        if (t.joinable()) {
+            t.join();
         }
     }
-    for (i=i; i<this->nbThread; i++) {
-        if (subFrames.at(i) == nullptr) break;
+    for (int i=0; i<futures.size(); i++) {
         vector<Point*> a = futures.at(i).get();
         ptsCandida.insert(ptsCandida.end(),a.begin(),a.end());
     }
-    return solveNPlusProche(pts,ptsCandida,nbPts);
+    vector<Point*> ret = solveNPlusProche(pts,ptsCandida,nbPts);
+    return ret;
 }
 
 vector<Point*> getPtsSubFrame(SubFrame* sub, Point* pts, int nbPts) {
