@@ -8,10 +8,14 @@
 #define SUBFRAME_H
 #include "subFrame.hpp"
 #endif
+#ifndef MAIN_H
+#define MAIN_H
+#include "main.hpp"
+#endif
 
 class Frame {
     private:
-        static const int minSizeSubFrame = 50;
+        static const int minSizeSubFrame = FRAME_SIZE_MIN;
         vector<Point*> subFrame;
         Point* lastPts;
         int nbPts;

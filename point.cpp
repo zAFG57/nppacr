@@ -50,7 +50,7 @@ bool Point::isAlignWith(Point* pts1, Point* pts2) {
         double c3 = this->coord.at(i);
         double s1 = c1-c2;
         double s2 = c1-c3;
-        if ((s1>0 && s2<0) || (s1<0 && s2>0)) return false;
+        if ((s1>=0 && s2<=0) || (s1<=0 && s2>=0)) return false;
     }
     return true;
 }
@@ -65,7 +65,7 @@ bool Point::isClosserWhenAlign(Point* ptsSource, Point* ptsCompare) {
         double c3 = this->coord.at(i);
         double s1 = c1-c2;
         double s2 = c1-c3;
-        if ((s1>0 && s2>s1) || (s1<0 && s2<s1)) return false;
+        if ((s1>=0 && s2>=s1) || (s1<=0 && s2<=s1)) return false;
     }
     return true;
 }

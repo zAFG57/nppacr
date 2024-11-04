@@ -81,14 +81,15 @@ vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
     vector<thread> coeur;
     vector<SubFrame*> subFrames;
     vector<future<vector<Point*>>> futures;
+    vector<Point*> ptsCandida;
     int i;
     for (i=0; i<this->nbThread; i++) {
         subFrames.push_back(this->getsubframe(i));
         if (subFrames.at(i) == nullptr) break;
         promise<vector<Point*>> prom;
         futures.push_back(prom.get_future());
-        coeur.emplace_back([sub = subFrames.at(i), pts, i, prom = move(prom)]() mutable {
-            prom.set_value(getPtsSubFrame(sub, pts, i));
+        coeur.emplace_back([sub = subFrames.at(i), pts, nbPts, prom = move(prom)]() mutable {
+            prom.set_value(getPtsSubFrame(sub, pts, nbPts));
         });
     }
     i--;
@@ -97,15 +98,12 @@ vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
             coeur.at(i).join();
         }
     }
-    cout << "joined  \n";
-    vector<Point*> a;
     for (i=i; i<this->nbThread; i++) {
         if (subFrames.at(i) == nullptr) break;
-        a.push_back(futures.at(i).get().at(0));
-        cout << a.at(a.size()-1)->getVal().at(0);
-        cout << "\tici\n";
+        vector<Point*> a = futures.at(i).get();
+        ptsCandida.insert(ptsCandida.end(),a.begin(),a.end());
     }
-    return vector<Point*>();
+    return solveNPlusProche(pts,ptsCandida,nbPts);
 }
 
 vector<Point*> getPtsSubFrame(SubFrame* sub, Point* pts, int nbPts) {
