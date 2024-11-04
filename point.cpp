@@ -10,6 +10,17 @@ Point::Point(vector<double> valeur, vector<double> coord) {
     this->valeur = valeur;
 }
 
+Point::Point(vector<int> valeur, vector<int> coord) {
+    vector<double> valeurDouble;
+    vector<double> coordDouble;
+    for (int i=0; i<valeur.size(); i++) {
+        valeurDouble.push_back(static_cast<double>(valeur[i]));
+        coordDouble.push_back(static_cast<double>(coord[i]));
+    }
+    this->coord = coordDouble;
+    this->valeur = valeurDouble;
+}
+
 Point::~Point() {};
 
 void Point::setSuivant(Point* suivant) {

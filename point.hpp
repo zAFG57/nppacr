@@ -8,6 +8,7 @@ class Point {
         vector<double> coord;
     public:
         Point(vector<double> valeur, vector<double> coord);
+        Point(vector<int> valeur, vector<int> coord);
         ~Point();
         void setSuivant(Point* suivant);
         Point* getSuivant();

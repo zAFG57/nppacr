@@ -14,16 +14,20 @@
 #define SUBFRAME_h
 #include "subframe.hpp"
 #endif
+#ifndef IMAGE_H
+#define IMAGE_H
+#include "image.hpp"
+#endif
 using namespace std;
 
+
 int main() {
-    Point* pts = new Point(vector<double>{57.5}, vector<double>{});
-    Frame* frame = new Frame();
-    frame->ajouterPoint(pts);
-    vector<Point*> a = frame->getNPlusProche(pts,2);
-    for (int i=0; i<a.size(); i++) {
-        cout << a[i]->getVal()[0];
-        cout << "\n";
+    string imgFile = "content/original.png";
+    Image img(imgFile);
+    if (!img.isSuccess()) {
+        cout << "mauvais fichier 0_o \n";
     }
-    return 0;
+    vector<Point*> allPts;
+    img.toVectorExeptWhite(allPts);
+    cout << allPts.size();
 }
