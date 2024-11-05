@@ -18,8 +18,6 @@ extern "C" {
     #include "ext/stb_image.h"
     #include "ext/stb_image_write.h"
 }
-// to save image =>
-//https://github.com/nothings/stb/blob/master/tests/image_write_test.c
 
 bool load_image(vector<unsigned char>& image, const string& filename, int& x, int&y) {
     int n;
@@ -122,5 +120,21 @@ void Image::saveImage(const string& file) {
     for (int i=0; i<this->image.size();i++) {
         img6x5_rgb[i] = this->image[i] == 255 ? 0: this->image[i];
     }
-    stbi_write_png(file.c_str(), this->width, this->height, this->nbV, img6x5_rgb, this->width*this->nbV);
+    static int a = stbi_write_png(file.c_str(), this->width, this->height, this->nbV, img6x5_rgb, this->width*this->nbV);
+}
+
+void Image::writePixel(int x, int y, int n, unsigned char val) {
+    size_t index = this->nbV * (y * this->width + x) + n;
+    this->image[index] = val;
+}
+
+void Image::reLoadImage(vector<Point*> pts) {
+    for (int i=0; i<pts.size(); i++) {
+        Point* p = pts[i];
+        vector<double> coord = p->getCoord();
+        vector<double> color = p->getVal();
+        this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),0,static_cast<unsigned char>(static_cast<int>(round(color[0]))));
+        this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),1,static_cast<unsigned char>(static_cast<int>(round(color[1]))));
+        this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),2,static_cast<unsigned char>(static_cast<int>(round(color[2]))));
+    }
 }

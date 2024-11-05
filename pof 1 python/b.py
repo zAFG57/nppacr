@@ -6,7 +6,7 @@ from functionB import *
 nbPts = 1542
 n=5
 
-im = Image.open('../content/original.png')
+im = Image.open('content/original.png')
 
 arr = numpy.array(im)
 points = {}
@@ -39,4 +39,4 @@ for y in range(ymax):
             im.putpixel((x, y), (0, 0, 0))
 
 
-im.save("../content/modify.png")
+im.save("content/modify.png")

@@ -30,6 +30,7 @@ int main() {
     }
     vector<Point*> allPts;
     img.toVectorExeptWhite(allPts);
-    cout << allPts.size();
+    cout << allPts.size() << "\n";
+    img.reLoadImage(allPts);
     img.saveImage(imgFile2);
 }
