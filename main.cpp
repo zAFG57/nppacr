@@ -23,6 +23,7 @@ using namespace std;
 
 int main() {
     string imgFile = "content/original.png";
+    string imgFile2 = "content/test.png";
     Image img(imgFile);
     if (!img.isSuccess()) {
         cout << "mauvais fichier 0_o \n";
@@ -30,4 +31,5 @@ int main() {
     vector<Point*> allPts;
     img.toVectorExeptWhite(allPts);
     cout << allPts.size();
+    img.saveImage(imgFile2);
 }

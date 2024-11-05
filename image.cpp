@@ -23,10 +23,10 @@ extern "C" {
 
 bool load_image(vector<unsigned char>& image, const string& filename, int& x, int&y) {
     int n;
-    unsigned char* data = stbi_load(filename.c_str(), &x, &y, &n, 4);
+    unsigned char* data = stbi_load(filename.c_str(), &x, &y, &n, 3);
     if (data != nullptr)
     {
-        image = vector<unsigned char>(data, data + x * y * 4);
+        image = vector<unsigned char>(data, data + x * y * 3);
     }
     stbi_image_free(data);
     return (data != nullptr);
@@ -35,6 +35,13 @@ bool load_image(vector<unsigned char>& image, const string& filename, int& x, in
 Image::Image(string file) {
     this->success = load_image(this->image, file, this->width, this->height);
 }
+
+Image::Image(vector<unsigned char> image, int whidth, int height) {
+    this->image = image;
+    this->width = width;
+    this->height = height;
+}
+
 
 Image::~Image() {}
 
@@ -97,4 +104,23 @@ void Image::toVectorExeptWhite(vector<Point*> &allPts) {
             }
         }
     }
+}
+
+void Image::toVector(vector<Point*> &allPts) {
+    for (int x=0; x<this->width; x++) {
+        for (int y=0; y<this->height; y++) {
+            vector<int> coord = {x,y};
+            vector<int> color = this->readPixel(x,y);
+            Point* pts = new Point(color,coord);
+            allPts.push_back(pts);
+        }
+    }
+}
+
+void Image::saveImage(const string& file) {
+    unsigned char img6x5_rgb[this->width*this->height*this->nbV];
+    for (int i=0; i<this->image.size();i++) {
+        img6x5_rgb[i] = this->image[i] == 255 ? 0: this->image[i];
+    }
+    stbi_write_png(file.c_str(), this->width, this->height, this->nbV, img6x5_rgb, this->width*this->nbV);
 }

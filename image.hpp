@@ -14,13 +14,16 @@ class Image {
         bool success;
     public:
         Image(string file);
+        Image(vector<unsigned char> image, int whidth, int height);
         ~Image();
         int getWidth();
         int getHeight();
         bool isSuccess();
         vector<int> readPixel(int x, int y);
         void toVector(vector<vector<int>> &coords, vector<vector<int>> &vals);
+        void toVector(vector<Point*> &allPts);
         vector<int> readPixelIfNotwhite(int x, int y);
         void toVectorExeptWhite(vector<vector<int>> &coords, vector<vector<int>> &vals);
         void toVectorExeptWhite(vector<Point*> &allPts);
+        void saveImage(const string& file);
 };
