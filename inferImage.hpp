@@ -1,16 +1,10 @@
 #include <vector>
 #include <iostream>
 
-#ifndef POINT_H
-#define POINT_H
-#include "point.hpp"
-#endif
-#ifndef IMAGE_H
-#define IMAGE_H
-#include "image.hpp"
-#endif
-
 using namespace std;
+
+class Image;
+class Point;
 
 class InferImage {
     private:

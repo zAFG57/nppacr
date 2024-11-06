@@ -14,6 +14,7 @@ class Point {
         Point* getSuivant();
         vector<double> getCoord();
         vector<double> getVal();
+        void setVal(vector<double> val);
         double getDistFrom(Point* pts);
         bool isAlignWith(Point* pts1, Point* pts2);
         bool isClosserWhenAlign(Point* ptsSource, Point* ptsCompare);

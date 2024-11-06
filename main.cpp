@@ -18,19 +18,17 @@
 #define IMAGE_H
 #include "image.hpp"
 #endif
+#ifndef INFERIMAGE_H
+#define INFERIMAGE_H
+#include "inferImage.hpp"
+#endif
 using namespace std;
 
 
 int main() {
     string imgFile = "content/original.png";
     string imgFile2 = "content/test.png";
-    Image img(imgFile);
-    if (!img.isSuccess()) {
-        cout << "mauvais fichier 0_o \n";
-    }
-    vector<Point*> allPts;
-    img.toVectorExeptWhite(allPts);
-    cout << allPts.size() << "\n";
-    img.reLoadImage(allPts);
-    img.saveImage(imgFile2);
+    Image* img = new Image(imgFile);
+    InferImage infIm(img,imgFile2);
+    infIm.doYourJob();
 }

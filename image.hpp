@@ -1,8 +1,7 @@
-#ifndef POINT_H
-#define POINT_H
-#include "point.hpp"
-#endif
 #include <vector>
+
+class Point;
+
 bool load_image(vector<unsigned char>& image, const string& filname, int& x, int& y);
 
 class Image {

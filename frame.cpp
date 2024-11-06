@@ -23,6 +23,17 @@ Frame::Frame() {
     this->nbPtsNotUpdate=0;
 }
 
+Frame::Frame(vector<Point*> allPts) {
+    this->nbPts = 0;
+    this->subFrame = {};
+    this->nbThread = thread::hardware_concurrency();
+    this->nbPtsNotUpdate=0;
+    int size = allPts.size();
+    for (int i=0; i<size; i++) {
+        this->ajouterPoint(allPts[i]);
+    }
+}
+
 Frame::~Frame() {}
 
 void Frame::ajouterPoint(Point* point) {
@@ -106,4 +117,24 @@ vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
 
 vector<Point*> getPtsSubFrame(SubFrame* sub, Point* pts, int nbPts) {
     return sub->getNPlusProche(pts,nbPts);
+}
+
+void Frame::updatePts(Point* pts, int nbPts) {
+    vector<Point*> nPtsPP = this->getNPlusProche(pts,nbPts);
+    int size = nPtsPP.size();
+    int sizeVal = nPtsPP[0]->getVal().size();
+    vector<double> val;
+    for (int i=0; i<sizeVal; i++) {
+        val.push_back(0);
+    }
+    for (int i=0; i<size; i++) {
+        vector<double> value = nPtsPP[i]->getVal();
+        for (int y=0; y<sizeVal; y++) {
+            val[y] += value[y];
+        }
+    }
+    for (int y=0; y<sizeVal; y++) {
+        val[y] = val[y] / size;
+    }
+    pts->setVal(val);
 }

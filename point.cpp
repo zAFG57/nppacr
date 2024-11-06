@@ -8,6 +8,7 @@ using namespace std;
 Point::Point(vector<double> valeur, vector<double> coord) {
     this->coord = coord;
     this->valeur = valeur;
+    this->suivant = nullptr;
 }
 
 Point::Point(vector<int> valeur, vector<int> coord) {
@@ -79,4 +80,8 @@ bool Point::isClosserWhenAlign(Point* ptsSource, Point* ptsCompare) {
         if ((s1>=0 && s2>=s1) || (s1<=0 && s2<=s1)) return false;
     }
     return true;
+}
+
+void Point::setVal(vector<double> val) {
+    this->valeur = val;
 }

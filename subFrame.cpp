@@ -42,31 +42,8 @@ vector<Point*> SubFrame::getNPlusProche(Point* pts, int nbPst) {
 
 vector<Point*> solveNPlusProche(Point* pts, vector<Point*> candidats, int nbPts) {
     if (candidats.size() <= nbPts) return candidats;
-    vector<Point*> selectedPts;
-    vector<double> dists;
-    int IdxMax=0;
-    double distMax=0;
-    int i;
-    const int size = candidats.size();
-    for (i=0; i<nbPts; i++) {
-        double dist = candidats[i]->getDistFrom(pts);
-        selectedPts.push_back(candidats[i]);
-        dists.push_back(dist);
-        if (dist > distMax) {
-            IdxMax = i;
-            distMax = dist;
-        }
-    }
-    for (i=i;i<size;i++) {
-        double dist = candidats[i]->getDistFrom(pts);
-        if (dist < distMax) {
-            selectedPts[IdxMax] = candidats[i];
-            dists[IdxMax] = dist;
-            IdxMax = getIndexMaximum(dists);
-            distMax = dists[IdxMax];
-        }
-    }
-    return selectedPts;
+    SubFrame sb(candidats[0],candidats.at(candidats.size()-1)->getSuivant(),candidats.size());
+    return sb.getNPlusProche(pts,nbPts);
 }
 
 vector<Point*> solveNPlusProche(Point* pts, SubFrame* candidats, int nbPts) {
