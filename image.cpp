@@ -118,7 +118,7 @@ void Image::toVector(vector<Point*> &allPts) {
 void Image::saveImage(const string& file) {
     unsigned char img6x5_rgb[this->width*this->height*this->nbV];
     for (int i=0; i<this->image.size();i++) {
-        img6x5_rgb[i] = this->image[i] == 255 ? 0: this->image[i];
+        img6x5_rgb[i] = this->image[i];
     }
     static int a = stbi_write_png(file.c_str(), this->width, this->height, this->nbV, img6x5_rgb, this->width*this->nbV);
 }
