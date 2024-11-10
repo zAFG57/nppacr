@@ -35,9 +35,10 @@ using namespace std;
 
 int main() {
     string csvFile = "content/data.custom";
+    int nbCoord = 7*2;
+    int nbVal = 1;
+    int nbVoisin = 4;
     DataEvaluateur* dataEvaluateur;
-
-    dataEvaluateur = new DataEvaluateur(csvFile,7*2,1);
-
-    dataEvaluateur->doYourJob(4);
+    dataEvaluateur = new DataEvaluateur(csvFile,nbCoord,nbVal);
+    dataEvaluateur->doYourJob(nbVoisin);
 }
