@@ -23,7 +23,7 @@ def saveNewRow(jours):
     row = ""
     for jour in range(NB_JOUR_AVANT):
         j = a[jour]
-        row += str(normelized(maxN,minN,toFloat(j[2]))) + " " + str(normelized(maxN,minN,toFloat(j[3]))) + " " + str(normelized(maxN,minN,toFloat(j[4]))) + " "
+        row += str(normelized(maxN,minN,toFloat(j[3]))) + " " + str(normelized(maxN,minN,toFloat(j[4]))) + " "
     row += str(getValue(a,maxN,minN)) + " "
     FinalFile += row
 

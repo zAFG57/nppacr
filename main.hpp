@@ -1,5 +1,3 @@
 using namespace std;
 #include <iostream>
-#include <vector>
-#define FRAME_SIZE_MIN 1770
-
+#define FRAME_SIZE_MIN 2200

@@ -22,13 +22,21 @@
 #define INFERIMAGE_H
 #include "inferImage.hpp"
 #endif
+#ifndef DATA_READER_H
+#define DATA_READER_H
+#include "dataReader.hpp"
+#endif
 using namespace std;
 
 
 int main() {
-    string imgFile = "content/original.png";
-    string imgFile2 = "content/test.png";
-    Image* img = new Image(imgFile);
-    InferImage infIm(img,imgFile2);
-    infIm.doYourJob();
+    string csvFile = "content/data.custom";
+    DataReader dataReader(csvFile,7*2,1);
+    Frame* frame = dataReader.readFile();
+    vector<double> val = {};
+    vector<double> coord = {0.17338709677419356, 0.0, 0.30403225806451467, 0.07499999999999964, 0.5991935483870964, 0.2266129032258057, 0.9024193548387086, 0.4064516129032247, 0.9782258064516125, 0.42499999999999855, 0.8774193548387094, 0.6395161290322577, 1.0, 0.6032258064516125};
+    Point* pts = new Point(val,coord);
+    frame->updatePts(pts,10);
+    vector<double> bon = pts->getVal();
+    cout << bon[0];
 }

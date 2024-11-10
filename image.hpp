@@ -1,5 +1,3 @@
-#include <vector>
-
 class Point;
 
 bool load_image(vector<unsigned char>& image, const string& filname, int& x, int& y);
