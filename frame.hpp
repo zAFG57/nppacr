@@ -25,6 +25,7 @@ class Frame {
         SubFrame* getsubframe(int index);
         vector<Point*> getNPlusProche(Point* pts, int nbPts);
         void updatePts(Point* pts, int nbPts);
+        Point* getFirstPts();
 };
 
 vector<Point*> getPtsSubFrame(SubFrame* sub, Point* pts, int nbPts);

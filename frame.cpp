@@ -138,3 +138,7 @@ void Frame::updatePts(Point* pts, int nbPts) {
     }
     pts->setVal(val);
 }
+
+Point* Frame::getFirstPts() {
+    return this->subFrame[0];
+}
