@@ -12,8 +12,8 @@ class SubFrame {
         Point* getFirstPts();
         Point* getStopPts();
         bool isStellInSubFrame(Point* pts);
-        vector<Point*> getNPlusProche(Point* pts, int nbPts);
-        vector<Point*> getNPlusProche(Point* pts, vector<Point*> candidats, int nbPts);
+        vector<Point*> getNPlusProche(Point* pts, int nbVoisin);
+        vector<Point*> getNPlusProche(Point* pts, vector<Point*> candidats, int nbVoisin, int deepnessTracker);
         vector<Point*> toVector();
 };
 

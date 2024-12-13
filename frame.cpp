@@ -88,7 +88,6 @@ SubFrame* Frame::getsubframe(int index) {
 }
 
 vector<Point*> Frame::getNPlusProche(Point* pts, int nbPts) {
-    vector<vector<Point*>> preselection;
     vector<thread> coeur;
     vector<SubFrame*> subFrames;
     vector<future<vector<Point*>>> futures;

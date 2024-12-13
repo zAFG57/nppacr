@@ -1,10 +1,12 @@
 from copy import deepcopy
 
-NB_JOUR_AVANT = 7
+NB_JOUR_AVANT = 4
 NB_JOUR_APRES = 3
 FinalFile = ""
+idxHight = 1
+idxLow = 2
 
-csvFile = "./content/data.csv"
+csvFile = "./content/BTCUSDT_1h.csv"
 savingFile= "./content/data.custom"
 
 #########################
@@ -23,7 +25,7 @@ def saveNewRow(jours):
     row = ""
     for jour in range(NB_JOUR_AVANT):
         j = a[jour]
-        row += str(normelized(maxN,minN,toFloat(j[3]))) + " " + str(normelized(maxN,minN,toFloat(j[4]))) + " "
+        row += str(normelized(maxN,minN,toFloat(j[idxHight]))) + " " + str(normelized(maxN,minN,toFloat(j[idxLow]))) + " "
     row += str(getValue(a,maxN,minN)) + " "
     FinalFile += row
 
@@ -35,19 +37,19 @@ def findMaxAndMin(jours):
     minN = -1
     for i in range(NB_JOUR_AVANT):
         if (maxN == -1):
-            maxN = toFloat(jours[i][3])
-            minN = toFloat(jours[i][4])
-        if (maxN<toFloat(jours[i][3])):
-            maxN = toFloat(jours[i][3])
-        if (minN > toFloat(jours[i][4])):
-            minN = toFloat(jours[i][4])
+            maxN = toFloat(jours[i][idxHight])
+            minN = toFloat(jours[i][idxLow])
+        if (maxN<toFloat(jours[i][idxHight])):
+            maxN = toFloat(jours[i][idxHight])
+        if (minN > toFloat(jours[i][idxLow])):
+            minN = toFloat(jours[i][idxLow])
     return maxN,minN
 
 def getValue(jours,maxN,minN):
     avg=0
     for a in range(NB_JOUR_AVANT,NB_JOUR_AVANT+NB_JOUR_APRES):
         i = jours[a]
-        avg += (normelized(maxN,minN,toFloat(i[3])) + normelized(maxN,minN,toFloat(i[4])))/2
+        avg += (normelized(maxN,minN,toFloat(i[idxHight])) + normelized(maxN,minN,toFloat(i[idxLow])))/2
     return avg/NB_JOUR_APRES
 
 #########################

@@ -34,19 +34,19 @@ bool SubFrame::isStellInSubFrame(Point* pts) {
     return pts != this->ptsStop;
 }
 
-vector<Point*> SubFrame::getNPlusProche(Point* pts, int nbPst) {
-    if (this->nbPts <= FRAME_SIZE_MIN) return solveNPlusProche(pts,this,nbPst);
+vector<Point*> SubFrame::getNPlusProche(Point* pts, int nbVoisin) {
+    if (this->nbPts <= FRAME_SIZE_MIN) return solveNPlusProche(pts,this,nbVoisin);
     vector<Point*> vec = this->toVector();
-    return this->getNPlusProche(pts,vec,nbPst);
+    return this->getNPlusProche(pts,vec,nbVoisin,0);
 }
 
-vector<Point*> solveNPlusProche(Point* pts, vector<Point*> candidats, int nbPts) {
-    if (candidats.size() <= nbPts) return candidats;
+vector<Point*> solveNPlusProche(Point* pts, vector<Point*> candidats, int nbVoisin) {
+    if (candidats.size() <= nbVoisin) return candidats;
     SubFrame sb(candidats[0],candidats.at(candidats.size()-1)->getSuivant(),candidats.size());
-    return sb.getNPlusProche(pts,nbPts);
+    return sb.getNPlusProche(pts,nbVoisin);
 }
 
-vector<Point*> solveNPlusProche(Point* pts, SubFrame* candidats, int nbPts) {
+vector<Point*> solveNPlusProche(Point* pts, SubFrame* candidats, int nbVoisin) {
     vector<Point*> selectedPts;
     vector<double> dists;
     int IdxMax=0;
@@ -54,7 +54,7 @@ vector<Point*> solveNPlusProche(Point* pts, SubFrame* candidats, int nbPts) {
     int i;
     Point* currentPts = candidats->getFirstPts();
     Point* stopPts = candidats->getStopPts();
-    for (i=0; i<nbPts; i++) {
+    for (i=0; i<nbVoisin; i++) {
         if (currentPts == stopPts) continue;
         double dist = currentPts->getDistFrom(pts);
         selectedPts.push_back(currentPts);
@@ -102,18 +102,20 @@ vector<Point*> SubFrame::toVector() {
     return pts;
 }
 
-vector<Point*> SubFrame::getNPlusProche(Point* pts, vector<Point*> candidats, int nbPts) {
-    vector<Point*> selectedPts;
-    Point* rPts = getRandomPts(candidats);
+vector<Point*> SubFrame::getNPlusProche(Point* pts, vector<Point*> candidats, int nbVoisin, int deepnessTracker) {
     int size = candidats.size();
-    if (size <= FRAME_SIZE_MIN) return solveNPlusProche(pts,candidats,nbPts);
+    if (deepnessTracker >= MAX_ALLOAWED_DETH || size <= FRAME_SIZE_MIN) return solveNPlusProche(pts,candidats,nbVoisin);
+    vector<Point*> selectedPts;
+    selectedPts.push_back(candidats[0]);
+    Point* rPts = getRandomPts(candidats);
     for (int i=0; i<size;i++) {
-        if (!candidats[i]->isAlignWith(pts,rPts)) continue;
-        if (!candidats[i]->isClosserWhenAlign(pts,rPts)) continue;
-        selectedPts.push_back(candidats[i]);
+        if (candidats[i] != rPts && pts->isAlignWith(candidats[i],rPts) && pts->isClosserWhenAlign(candidats[i],rPts)) {
+            selectedPts.push_back(candidats[i]);
+        }
     }
-    if (selectedPts.size() >= nbPts) return getNPlusProche(pts,selectedPts,nbPts);
-    return getNPlusProche(pts,candidats,nbPts);
+    if (selectedPts.size() >= nbVoisin) return getNPlusProche(pts,selectedPts,nbVoisin,deepnessTracker);
+    deepnessTracker ++;
+    return getNPlusProche(pts,candidats,nbVoisin,deepnessTracker);
 }
 
 Point* getRandomPts(vector<Point*> vec) {

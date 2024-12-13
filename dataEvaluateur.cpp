@@ -24,6 +24,7 @@ DataEvaluateur::DataEvaluateur(string file, int nbCoord, int nbVal) {
     DataReader dataReader(this->file,this->nbCoord,this->nbVal);
     this->frame = dataReader.readFile();
     this->firstPoint = this->frame->getFirstPts();
+    cout << "DataEvaluateur initialise\n";
 }
 
 DataEvaluateur::~DataEvaluateur() {}
@@ -39,6 +40,7 @@ void DataEvaluateur::doYourJob(int nbVoisin) {
     // calcul diff
     while (pts != nullptr) {
         nb ++;
+        if (nb%50==0) cout << nb << "\n";
         vector<double> ancien = pts->getVal();
         frame->updatePts(pts,nbVoisin);
         vector<double> nouveau = pts->getVal();
@@ -47,6 +49,7 @@ void DataEvaluateur::doYourJob(int nbVoisin) {
         }
         pts = pts->getSuivant();
     }
+    cout << "val calue\n";
     // calcul avg;
     for (int i=0; i<this->nbVal; i++) {
         avgSum[i] = avgSum[i]/nb;

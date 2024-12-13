@@ -3,6 +3,7 @@
 #include "point.hpp"
 #endif
 #include <vector>
+#include<iostream>
 using namespace std;
 
 Point::Point(vector<double> valeur, vector<double> coord) {
@@ -57,27 +58,27 @@ bool Point::isAlignWith(Point* pts1, Point* pts2) {
     vector<double> coord2 = pts2->getCoord();
     int size = coord1.size();
     for (int i=0; i<size; i++) {
-        double c1 = coord1.at(i);
+        double c1 = this->coord.at(i);
         double c2 = coord2.at(i);
-        double c3 = this->coord.at(i);
+        double c3 = coord1.at(i);
         double s1 = c1-c2;
         double s2 = c1-c3;
-        if ((s1>=0 && s2<=0) || (s1<=0 && s2>=0)) return false;
+        if ((s1>0 && s2<0) || (s1<0 && s2>0)) return false;
     }
     return true;
 }
 
-bool Point::isClosserWhenAlign(Point* ptsSource, Point* ptsCompare) {
-    vector<double> coordSource = ptsSource->getCoord();
-    vector<double> coordCompare = ptsCompare->getCoord();
-    int size = coordSource.size();
+bool Point::isClosserWhenAlign(Point* pts1, Point* pts2) {
+    vector<double> coord1 = pts1->getCoord();
+    vector<double> coord2 = pts2->getCoord();
+    int size = coord1.size();
     for (int i=0; i<size; i++) {
-        double c1 = coordSource.at(i);
-        double c2 = coordCompare.at(i);
-        double c3 = this->coord.at(i);
+        double c1 = this->coord.at(i);
+        double c2 = coord2.at(i);
+        double c3 = coord1.at(i);
         double s1 = c1-c2;
         double s2 = c1-c3;
-        if ((s1>=0 && s2>=s1) || (s1<=0 && s2<=s1)) return false;
+        if ((s1>0 && s2>s1) || (s1<0 && s2<s1)) return false;
     }
     return true;
 }
