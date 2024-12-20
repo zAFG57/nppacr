@@ -1,44 +1,44 @@
-#ifndef POINT_H
-#define POINT_H
+#ifndef POINT
+#define POINT
 #include "point.hpp"
 #endif
-#include <vector>
-#include<iostream>
 using namespace std;
 
-Point::Point(vector<double> valeur, vector<double> coord) {
+Point::Point(vector<double> coord, vector<double> val) {
     this->coord = coord;
-    this->valeur = valeur;
-    this->suivant = nullptr;
+    this->val = val;
 }
 
-Point::Point(vector<int> valeur, vector<int> coord) {
+Point::Point(vector<double> coord) {
+    this->coord = coord;
+    vector<double> v = {};
+    this->val = v;
+}
+
+Point::Point(vector<int> coord, vector<int> val) {
     vector<double> valeurDouble;
     vector<double> coordDouble;
-    for (int i=0; i<valeur.size(); i++) {
-        valeurDouble.push_back(static_cast<double>(valeur[i]));
+    for (int i=0; i<val.size(); i++) {
+        valeurDouble.push_back(static_cast<double>(val[i]));
         coordDouble.push_back(static_cast<double>(coord[i]));
     }
     this->coord = coordDouble;
-    this->valeur = valeurDouble;
+    this->val = valeurDouble;
 }
 
 Point::~Point() {};
 
-void Point::setSuivant(Point* suivant) {
-    this->suivant = suivant;
-}
-
-Point* Point::getSuivant() {
-    return this->suivant;
-}
 
 vector<double> Point::getCoord() {
     return this->coord;
 }
 
 vector<double> Point::getVal() {
-    return this->valeur;
+    return this->val;
+}
+
+void Point::setVal(vector<double> val) {
+    this->val = val;
 }
 
 double Point::getDistFrom(Point* pts) {
@@ -53,36 +53,6 @@ double Point::getDistFrom(Point* pts) {
     return dist;
 }
 
-bool Point::isAlignWith(Point* pts1, Point* pts2) {
-    vector<double> coord1 = pts1->getCoord();
-    vector<double> coord2 = pts2->getCoord();
-    int size = coord1.size();
-    for (int i=0; i<size; i++) {
-        double c1 = this->coord.at(i);
-        double c2 = coord2.at(i);
-        double c3 = coord1.at(i);
-        double s1 = c1-c2;
-        double s2 = c1-c3;
-        if ((s1>0 && s2<0) || (s1<0 && s2>0)) return false;
-    }
-    return true;
-}
-
-bool Point::isClosserWhenAlign(Point* pts1, Point* pts2) {
-    vector<double> coord1 = pts1->getCoord();
-    vector<double> coord2 = pts2->getCoord();
-    int size = coord1.size();
-    for (int i=0; i<size; i++) {
-        double c1 = this->coord.at(i);
-        double c2 = coord2.at(i);
-        double c3 = coord1.at(i);
-        double s1 = c1-c2;
-        double s2 = c1-c3;
-        if ((s1>0 && s2>s1) || (s1<0 && s2<s1)) return false;
-    }
-    return true;
-}
-
-void Point::setVal(vector<double> val) {
-    this->valeur = val;
+bool Point::isCloser(Point* pts, double dist) {
+    return pts->getDistFrom(this) <= dist;
 }

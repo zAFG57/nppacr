@@ -1,44 +1,25 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef MAIN
+#define MAIN
 #include "main.hpp"
 #endif
-#ifndef POINT_H
-#define POINT_H
-#include "point.hpp"
+#ifndef IOSTREAM
+#define IOSTREAM
+#include <iostream>
 #endif
-#ifndef FRAME_H
-#define FRAME_H
-#include "frame.hpp"
+#ifndef SPACE
+#define SPACE
+#include "space.hpp"
 #endif
-#ifndef SUBFRAME_H
-#define SUBFRAME_h
-#include "subframe.hpp"
-#endif
-#ifndef IMAGE_H
-#define IMAGE_H
-#include "image.hpp"
-#endif
-#ifndef INFERIMAGE_H
-#define INFERIMAGE_H
-#include "inferImage.hpp"
-#endif
-#ifndef DATA_READER_H
-#define DATA_READER_H
-#include "dataReader.hpp"
-#endif
-#ifndef DATA_EVALUATEUR_H
-#define DATA_EVALUATEUR_H
-#include "dataEvaluateur.hpp"
+#ifndef MATH
+#define MATH
+#include <cmath>
 #endif
 using namespace std;
 
-
-int main() {
-    string csvFile = "content/data.custom";
-    int nbCoord = 4*2;
-    int nbVal = 1;
-    int nbVoisin = 10;
-    DataEvaluateur* dataEvaluateur;
-    dataEvaluateur = new DataEvaluateur(csvFile,nbCoord,nbVal);
-    dataEvaluateur->doYourJob(nbVoisin);
+int main () {
+    Space* space = new Space(2);
+    vector<double> coord = {1,1};
+    Point* pts = new Point(coord);
+    space->AddPts(pts);
+    return 0;
 }

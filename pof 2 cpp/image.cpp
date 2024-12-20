@@ -6,8 +6,8 @@ using namespace std;
 #define IMAGE_H
 #include "image.hpp"
 #endif
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
 

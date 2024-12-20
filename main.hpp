@@ -1,4 +1,2 @@
-using namespace std;
-#include <iostream>
-#define FRAME_SIZE_MIN 5000
-#define MAX_ALLOAWED_DETH 2
+#define NB_SUB_DIVISION 10.0
+#define MAX_COORD_VALUE 100

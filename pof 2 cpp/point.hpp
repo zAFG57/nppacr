@@ -1,0 +1,21 @@
+using namespace std;
+#include <vector>
+
+class Point {
+    private:
+        Point* suivant;
+        vector<double> valeur;
+        vector<double> coord;
+    public:
+        Point(vector<double> valeur, vector<double> coord);
+        Point(vector<int> valeur, vector<int> coord);
+        ~Point();
+        void setSuivant(Point* suivant);
+        Point* getSuivant();
+        vector<double> getCoord();
+        vector<double> getVal();
+        void setVal(vector<double> val);
+        double getDistFrom(Point* pts);
+        bool isAlignWith(Point* pts1, Point* pts2);
+        bool isClosserWhenAlign(Point* ptsSource, Point* ptsCompare);
+};
