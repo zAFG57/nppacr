@@ -86,8 +86,13 @@ vector<SubSpace> Space::getsubSpaceAroudPoint(Point* pts, int nbVoisin) {
 
 }
 
-void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &corner) {
-
+void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &corner, int nbVoisin) {
+    int nbPts = 0;
+    if (subSpaceIdx.size() == 1) {
+        nbPts = this->allSubSpace[subSpaceIdx[0]]->getNbPts();
+        if (nbPts >= nbPts) return;
+    }
+    
 }
 
 void Space::updatePts(Point* pts, int nbVoisin) {
