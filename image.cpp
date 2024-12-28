@@ -1,13 +1,19 @@
-#include <vector>
+/*#ifndef IOSTREAM_H
+#define IOSTREAM_H
 #include <iostream>
+#endif
+#ifndef VECTOR_H
+#define VECTOR_H
+#include <vector>
+#endif
 using namespace std;
 
 #ifndef IMAGE_H
 #define IMAGE_H
 #include "image.hpp"
 #endif
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
 
@@ -137,4 +143,4 @@ void Image::reLoadImage(vector<Point*> pts) {
         this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),1,static_cast<unsigned char>(static_cast<int>(round(color[1]))));
         this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),2,static_cast<unsigned char>(static_cast<int>(round(color[2]))));
     }
-}
+}*/

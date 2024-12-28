@@ -1,22 +1,30 @@
-#ifndef VECTOR
-#define VECTOR
+#ifndef IOSTREAM_H
+#define IOSTREAM_H
+#include <iostream>
+#endif
+#ifndef VECTOR_H
+#define VECTOR_H
 #include <vector>
 #endif
-#ifndef FUNCTION
-#define FUNCTION
+#ifndef FUNCTION_H
+#define FUNCTION_H
 #include "function.hpp"
 #endif
-#ifndef ALGO
-#define ALGO
+#ifndef ALGO_H
+#define ALGO_H
 #include <algorithm>
+#endif
+#ifndef MAIN_H
+#define MAIN_H
+#include "main.hpp"
 #endif
 using namespace std;
 
 vector<vector<int>> findcoordAround(vector<int> center, int nbAround) {
-    //renvoie tout les points autour du centre nbAround chouche autour
+    //renvoie tout les points autour du centre nbAround couche autour
     int nbDim = center.size();
     vector<vector<int>> points = {};
-    for (int i=0; i<nbDim; i++) {
+    for (int i=1; i<nbDim; i++) {
         addForAllNCoord(points,center,nbAround,i);
     }
     return points;
@@ -30,14 +38,44 @@ void addForAllNCoord(vector<vector<int>> &points, vector<int> center, int nbArou
         coord.push_back(c);
         c++;
     }
-    addAllVarriationOfCoord(points,center,coord);
-    while (updateVectorIfUpdatable(coord,nbAround)) addAllVarriationOfCoord(points,center,coord);
+    addAllVarriationOfCoord(points,center,coord, nbAround);
+    while (updateVectorIfUpdatable(coord,nbAround)) addAllVarriationOfCoord(points,center,coord, nbAround);
 }
 
-void addAllVarriationOfCoord(vector<vector<int>> &point, vector<int> center, vector<int> coord) {
+void addAllVarriationOfCoord(vector<vector<int>> &points, vector<int> center, vector<int> coord, int nbAround) {
     // ajoute les points définit par the coord (but the coord is not always the in the right dimention)
-    // abc -> abcaa abcbb abccc abcab abcac abcbc
-     
+    // abc -> abcaa abcab abcac abcbb abcbc abccc
+    int size = coord.size();
+    int intCoord[center.size()];
+    vector<int> copyIntCoord = {};
+    for (int i=0; i<size; i++) {
+        intCoord[i] = coord[i];
+        copyIntCoord.push_back(coord[i]);
+    }
+    for (int i=size; i<center.size(); i++) {
+        intCoord[i] = -nbAround;
+        coord.push_back(-nbAround);
+        copyIntCoord.push_back(-nbAround);
+    }
+    sort(intCoord,intCoord+center.size());
+    addIfInScop(points,center,copyIntCoord);
+    while(next_permutation(intCoord,intCoord+center.size()-1)) {
+        sort(intCoord,intCoord+center.size());
+        for (int i=0; i<center.size(); i++) copyIntCoord[i] = intCoord[i];
+        addIfInScop(points,center,copyIntCoord);
+    }
+    while (getNextVarriation(coord,size,nbAround)) {
+        for (int i=0; i<center.size(); i++) {
+            intCoord[i] = coord[i];
+            copyIntCoord[i] = intCoord[i];
+        }
+        sort(intCoord,intCoord+center.size());
+        addIfInScop(points,center,copyIntCoord);
+        while(next_permutation(intCoord,intCoord+center.size())) {
+            for (int i=0; i<center.size(); i++) copyIntCoord[i] = intCoord[i];
+            addIfInScop(points,center,copyIntCoord);
+        }
+    }
 }
 
 bool getNextVarriation(vector<int> &coord, int idxStart, int nbAround) {
@@ -60,7 +98,13 @@ bool getNextVarriation(vector<int> &coord, int idxStart, int nbAround) {
 
 void addIfInScop(vector<vector<int>> &points, vector<int> center, vector<int> coord) {
     // ajoute un un point si il n'est pas en dehors de l'espace (retour au subSapce fin du théorique)
-     
+    vector<int> pts = {};
+    for (int i=0;i<coord.size(); i++) {
+        int c = coord[i]+center[i];
+        if (c<0 || c>MAX_COORD_VALUE) return;
+        pts.push_back(c);
+    }
+    points.push_back(pts);
 }
 
 bool updateVectorIfUpdatable(vector<int> &coord, int nbAround) {

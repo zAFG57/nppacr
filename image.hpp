@@ -1,4 +1,4 @@
-class Point;
+/*class Point;
 
 bool load_image(vector<unsigned char>& image, const string& filname, int& x, int& y);
 
@@ -25,4 +25,4 @@ class Image {
         void toVectorExeptWhite(vector<Point*> &allPts);
         void saveImage(const string& file);
         void reLoadImage(vector<Point*> pts);
-};
+};*/

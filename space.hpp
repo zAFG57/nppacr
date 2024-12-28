@@ -1,13 +1,13 @@
-#ifndef VECTOR
-#define VECTOR
+#ifndef VECTOR_H
+#define VECTOR_H
 #include <vector>
 #endif
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
-#ifndef SUBSPACE
-#define SUBSPACE
+#ifndef SUBSPACE_H
+#define SUBSPACE_H
 #include "subSpace.hpp"
 #endif
 using namespace std;

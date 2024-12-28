@@ -1,23 +1,18 @@
+/*#include "inferImage.hpp"
+#include <vector>
 #include <iostream>
 #include <algorithm>
 #include <random>
 
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
-#ifndef IMAGE
-#define IMAGE
+#ifndef IMAGE_H
+#define IMAGE_H
 #include "image.hpp"
 #endif
-#ifndef INFERIMAGE
-#define INFERIMAGE
-#include "inferImage.hpp"
-#endif
-#ifndef SPACE
-#define SPACE
-#include "space.hpp"
-#endif
+
 using namespace std;
 
 InferImage::InferImage(Image* img, string savingImage) {
@@ -62,18 +57,15 @@ vector<vector<double>> InferImage::genInferablePoint() {
 
 void InferImage::doYourJob() {
     vector<vector<double>> idx = this->genInferablePoint();
-    Space* space = new Space(2);
+    Frame* f = new Frame(this->allPts);
     int size = idx.size();
-    for (int i=0; i<this->allPts.size(); i++) {
-        space->AddPts(this->allPts[i]);
-    }
-    cout << "All pts added to the space\n";
     for (int i=0; i<size; i++) {
         vector<double> coord = idx[i];
-        Point* pts = new Point(coord);
-        space->updatePts(pts, 3);
-        space->AddPts(pts);
+        vector<double> color;
+        Point* pts = new Point(color,coord);
+        f->updatePts(pts, 3);
+        f->ajouterPoint(pts);
         this->allPts.push_back(pts);
     }
     this->saveImage();
-}
+}*/

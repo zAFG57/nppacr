@@ -1,4 +1,4 @@
-#include <vector>
+/*#include <vector>
 #include <iostream>
 
 using namespace std;
@@ -17,4 +17,4 @@ class InferImage {
         ~InferImage();
         void doYourJob();
         void saveImage();
-};
+};*/

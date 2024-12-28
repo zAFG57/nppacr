@@ -1,29 +1,29 @@
-#ifndef SPACE
-#define SPACE
+#ifndef SPACE_H
+#define SPACE_H
 #include "space.hpp"
 #endif
-#ifndef SUBSPACE
-#define SUBSPACE
+#ifndef SUBSPACE_H
+#define SUBSPACE_H
 #include "subSpace.hpp"
 #endif
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
-#ifndef VECTOR
-#define VECTOR
+#ifndef VECTOR_H
+#define VECTOR_H
 #include <vector>
 #endif
-#ifndef MAIN
-#define MAIN
+#ifndef MAIN_H
+#define MAIN_H
 #include "main.hpp"
 #endif
-#ifndef IOSTREAM
-#define IOSTREAM
+#ifndef IOSTREAM_H
+#define IOSTREAM_H
 #include <iostream>
 #endif
-#ifndef MATH
-#define MATH
+#ifndef MATH_H
+#define MATH_H
 #include <cmath>
 #endif
 

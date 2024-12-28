@@ -1,9 +1,9 @@
-#ifndef VECTOR
-#define VECTOR
+#ifndef VECTOR_H
+#define VECTOR_H
 #include <vector>
 #endif
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
 

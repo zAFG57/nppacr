@@ -1,5 +1,5 @@
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 #include "point.hpp"
 #endif
 using namespace std;
