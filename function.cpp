@@ -24,7 +24,8 @@ vector<vector<int>> findcoordAround(vector<int> center, int nbAround) {
     //renvoie tout les points autour du centre nbAround couche autour
     int nbDim = center.size();
     vector<vector<int>> points = {};
-    for (int i=1; i<nbDim; i++) {
+    for (int i=1; i<=nbDim; i++) {
+        cout << "dim " << i << "\n";
         addForAllNCoord(points,center,nbAround,i);
     }
     return points;
@@ -39,6 +40,7 @@ void addForAllNCoord(vector<vector<int>> &points, vector<int> center, int nbArou
         c++;
     }
     addAllVarriationOfCoord(points,center,coord, nbAround);
+    cout << "coord " << nbCoord << "\n";
     while (updateVectorIfUpdatable(coord,nbAround)) addAllVarriationOfCoord(points,center,coord, nbAround);
 }
 
@@ -53,9 +55,9 @@ void addAllVarriationOfCoord(vector<vector<int>> &points, vector<int> center, ve
         copyIntCoord.push_back(coord[i]);
     }
     for (int i=size; i<center.size(); i++) {
-        intCoord[i] = -nbAround;
-        coord.push_back(-nbAround);
-        copyIntCoord.push_back(-nbAround);
+        intCoord[i] = coord[0];
+        coord.push_back(coord[0]);
+        copyIntCoord.push_back(coord[0]);
     }
     sort(intCoord,intCoord+center.size());
     addIfInScop(points,center,copyIntCoord);
@@ -80,9 +82,10 @@ void addAllVarriationOfCoord(vector<vector<int>> &points, vector<int> center, ve
 
 bool getNextVarriation(vector<int> &coord, int idxStart, int nbAround) {
     // modifie et renvoie true les coord pour avoir la varriation d'appès.
-    // abc -> abcaa abcbb abccc abcab abcac abcbc
+    // abc -> abcaaa abcaab abcaac abcabb abcabc abcacc abcbbb abcbbc abcbbc abcbcc abcccc
+    if (coord.size() == idxStart) return false;
     int idx = coord.size()-1;
-    while (coord[idx] == nbAround) {
+    while (coord[idx] == coord[idxStart-1]) {
         if (idx == idxStart) return false;
         idx --;
     }
