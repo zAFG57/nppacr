@@ -111,7 +111,7 @@ void addIfInScop(vector<vector<int>> &points, vector<int> center, vector<int> co
 }
 
 bool updateVectorIfUpdatable(vector<int> &coord, int nbAround) {
-    // modifie les veleur de coordonné jusqu'au max de nbAround puis renvoit false quand il ne peut plus
+    // modifie les veleurs de coordonné jusqu'au max de nbAround puis renvoit false quand il ne peut plus
     // abc abd acd bcd
     // ab ac ad bc bd cd
     int idx = coord.size()-1;

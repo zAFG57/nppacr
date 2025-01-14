@@ -83,7 +83,7 @@ int Space::findIndex(Point* pts) {
 }
 
 vector<SubSpace> Space::getsubSpaceAroudPoint(Point* pts, int nbVoisin) {
-
+    throw new exception();
 }
 
 void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &corner, int nbVoisin) {

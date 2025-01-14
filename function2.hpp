@@ -1,0 +1,12 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+#include <vector>
+#endif
+
+using namespace std;
+
+vector<vector<int>> findCoordAround(vector<int> &center, int nbAround);
+void getNCoordDifferente(vector<int> &center, vector<vector<int>> &find, int nbDifferanteValue, int nbAround);
+void getCompletVariationOfCoord(vector<int> &center, vector<vector<int>> &find, vector<int> &partialCoord);
+void getPermutationOfCoord(vector<int> &center, vector<vector<int>> &find, vector<int> &coord);
+void addPointToFindPoints(vector<int> &center, vector<vector<int>> &find, int* coord);

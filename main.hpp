@@ -1,2 +1,3 @@
 #define NB_SUB_DIVISION 10.0
 #define MAX_COORD_VALUE 100
+#define MIN_COORD_VALUE 0
