@@ -16,7 +16,7 @@
 #endif
 #ifndef FUNCTION_H
 #define FUNCTION_H
-#include "function.hpp"
+#include "function2.hpp"
 #endif
 #ifndef VECTOR_H
 #define VECTOR_H
@@ -30,8 +30,8 @@ int main () {
     Point* pts = new Point(coord);
     space->AddPts(pts);*/
 
-    vector<int> center = {5,5};
-    vector<vector<int>> pts = findcoordAround(center,1);
+    vector<int> center = {5,5,5};
+    vector<vector<int>> pts = findCoordAround(center,1);
     cout << pts.size() << " points trouve\n";
     for (int i=0; i<pts.size(); i++) {
         cout << "pts n " << i << "\n";
