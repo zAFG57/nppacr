@@ -22,6 +22,7 @@ class Space {
 
         vector<SubSpace> getsubSpaceAroudPoint(Point* pts,int nbVoisin);
         void getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &corner, int nbVoisin);
+        SubSpace getSubspaceFromCoord(vector<int> coord);
     public:
         Space(int nbDimention);
         ~Space();

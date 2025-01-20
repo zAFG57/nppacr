@@ -20,4 +20,5 @@ class SubSpace {
         vector<Point*> getAllPts();
         int getNbPts();
         void addPts(Point* pts);
+        int getNumberOfPointAtDist(Point pts, double dist);
 };

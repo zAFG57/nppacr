@@ -26,6 +26,10 @@
 #define MATH_H
 #include <cmath>
 #endif
+#ifndef FUNCTION_H
+#define FUNCTION_H
+#include "function.hpp"
+#endif
 
 using namespace std;
 
@@ -82,8 +86,39 @@ int Space::findIndex(Point* pts) {
     return cond ? this->allSubSpace.size()-1 : idxSubSpace;
 }
 
+SubSpace Space::getSubspaceFromCoord(vector<int> coord) {
+    int idx = 0;
+    int puissance = 1;
+    for (int i=0; i<coord.size(); i++) {
+        idx += coord[i] * puissance;
+        puissance = puissance * NB_SUB_DIVISION;
+    }
+    return *this->allSubSpace[idx];
+}
+
 vector<SubSpace> Space::getsubSpaceAroudPoint(Point* pts, int nbVoisin) {
-    throw new exception();
+    vector<int> center = {};
+    double step = MAX_COORD_VALUE/NB_SUB_DIVISION;
+    vector<double> coord = pts->getCoord();
+    for (int i=0;i<coord.size();i++) {
+        center.push_back(coord[i]/step);
+    }
+
+    int nbAround = 0;
+    int nbFound = 0;
+    vector<vector<int>> subSpaceIntCoord;
+    vector<SubSpace> subspaces;
+    while (nbFound < nbVoisin) {
+        nbAround ++;
+        nbFound = 0;
+        subSpaceIntCoord = findCoordAround(center, nbAround);
+        subspaces = {};
+        for (int i=0; i<subSpaceIntCoord.size(); i++) {
+            subspaces.push_back(this->getSubspaceFromCoord(subSpaceIntCoord[i]));
+            nbFound += subspaces[i].getNumberOfPointAtDist(*pts,step);
+        }
+    }
+    return subspaces;
 }
 
 void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &corner, int nbVoisin) {

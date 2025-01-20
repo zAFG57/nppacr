@@ -41,3 +41,11 @@ int SubSpace::getNbPts() {
 void SubSpace::addPts(Point* pts) {
     this->allPts.push_back(pts);
 }
+
+int SubSpace::getNumberOfPointAtDist(Point pts, double dist) {
+    int nb = 0;
+    for (int i=0; i<this->allPts.size(); i++) {
+        if (dist >= pts.getDistFrom(this->allPts[i])) nb ++;
+    }
+    return nb;
+}
