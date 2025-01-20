@@ -5,9 +5,8 @@
 
 using namespace std;
 
-vector<vector<int>> findcoordAround(vector<int> center, int nbAround);
-void addForAllNCoord(vector<vector<int>> &points, vector<int> center, int nbAround, int nbCoord);
-bool updateVectorIfUpdatable(vector<int> &coord, int nbAround);
-void addAllVarriationOfCoord(vector<vector<int>> &points, vector<int> center, vector<int> coord, int nbAround);
-bool getNextVarriation(vector<int> &coord, int idxStart, int nbAround);
-void addIfInScop(vector<vector<int>> &points, vector<int> center, vector<int> coord);
+vector<vector<int>> findCoordAround(vector<int> &center, int nbAround);
+void getNCoordDifferente(vector<int> &center, vector<vector<int>> &find, int nbDifferanteValue, int nbAround);
+void getCompletVariationOfCoord(vector<int> &center, vector<vector<int>> &find, vector<int> &partialCoord);
+void getPermutationOfCoord(vector<int> &center, vector<vector<int>> &find, vector<int> &coord);
+void addPointToFindPoints(vector<int> &center, vector<vector<int>> &find, int* coord);

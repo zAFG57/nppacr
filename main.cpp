@@ -16,7 +16,7 @@
 #endif
 #ifndef FUNCTION_H
 #define FUNCTION_H
-#include "function2.hpp"
+#include "function.hpp"
 #endif
 #ifndef VECTOR_H
 #define VECTOR_H
