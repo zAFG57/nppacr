@@ -25,9 +25,7 @@ vector<vector<int>> findCoordAround(vector<int> &center, int nbAround) {
     int nbDimention = center.size();
     vector<vector<int>> find = {};
     for (int i=1; i<=nbDimention; i++) {
-        cout << "avant\n";
         getNCoordDifferente(center, find, i, nbAround);
-        cout << "apres\n";
     }
     return find;
 }
@@ -36,11 +34,10 @@ void getNCoordDifferente(vector<int> &center, vector<vector<int>> &find, int nbD
     // trouve les différents partialCoord avec N nombre différents
     vector<int> coord = {};
     for (int i=0; i<nbDifferanteValue; i++) {
+        if (-nbAround+i>nbAround) return;
         coord.push_back(-nbAround+i);
     }
-    cout << "v\n";
     getCompletVariationOfCoord(center,find,coord);
-    cout << "p\n";
     bool modified;
     int cursor;
     int val;
@@ -81,19 +78,18 @@ void getCompletVariationOfCoord(vector<int> &center, vector<vector<int>> &find, 
     bool modified;
     int cursor;
     int afterCursor;
-    cout << "stp\n";
-    // ici boucle infinie si on fait pour dimention 3 avec 2 valeurs différentes
     while (true) {
-        cursor = coord.size()-1;
+        cursor = static_cast<int>(coord.size())-1;
         modified = false;
         while (!modified) {
-            if (cursor == partialCoord.size()-1) return;
-            if (coord[cursor] != partialCoord[partialCoord.size()-1]) {
+            if (cursor == static_cast<int>(partialCoord.size())-1) return;
+            if (coord[cursor] != partialCoord[static_cast<int>(partialCoord.size())-1]) {
                 modified = true;
                 afterCursor = 0;
                 while (afterCursor<partialCoord.size() && coord[cursor] != partialCoord[afterCursor]) {
                     afterCursor ++;
                 }
+                afterCursor ++;
                 while(cursor<coord.size()) {
                     coord[cursor] = partialCoord[afterCursor];
                     cursor ++;
@@ -112,6 +108,7 @@ void getPermutationOfCoord(vector<int> &center, vector<vector<int>> &find, vecto
     for (int i=0; i<center.size(); i++) {
         intCoord[i] = coord[i];
     }
+    sort(intCoord,intCoord+coord.size());
     addPointToFindPoints(center,find,intCoord);
     while(next_permutation(intCoord,intCoord+center.size())) {
         addPointToFindPoints(center,find,intCoord);

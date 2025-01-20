@@ -22,6 +22,10 @@
 #define VECTOR_H
 #include <vector>
 #endif
+#ifndef ALGO_H
+#define ALGO_H
+#include <algorithm>
+#endif
 using namespace std;
 
 int main () {
@@ -30,13 +34,26 @@ int main () {
     Point* pts = new Point(coord);
     space->AddPts(pts);*/
 
-    vector<int> center = {5,5,5};
-    vector<vector<int>> pts = findCoordAround(center,1);
+    vector<int> center = {5,5,5,5,5,5,5,5};
+    vector<vector<int>> pts = findCoordAround(center,2);
     cout << pts.size() << " points trouve\n";
+    vector<int> f = {};
+    int variant;
+    int puissance;
     for (int i=0; i<pts.size(); i++) {
-        cout << "pts n " << i << "\n";
-        for (int y=0; y<pts[i].size(); y++) cout << "\t" << pts[i][y];
-        cout << "\n";
+        variant = 0;
+        puissance = 1;
+        for (int y=pts[i].size()-1; y>=0; y--) {
+            variant += pts[i][y] * puissance;
+            puissance = puissance * 10;
+        }
+        f.push_back(variant);
+    }
+    
+    sort(f.begin(),f.end());
+
+    for (int i=0; i<f.size(); i++) {
+        //cout << f[i] << "\n";
     }
     return 0;
 }
