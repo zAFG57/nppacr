@@ -127,7 +127,6 @@ void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &cor
         nbPts = this->allSubSpace[subSpaceIdx[0]]->getNbPts();
         if (nbPts >= nbPts) return;
     }
-    
 }
 
 void Space::updatePts(Point* pts, int nbVoisin) {

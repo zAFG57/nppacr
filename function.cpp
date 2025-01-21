@@ -18,6 +18,10 @@
 #define MAIN_H
 #include "main.hpp"
 #endif
+#ifndef POINT_H
+#define POINT_H
+#include "point.hpp"
+#endif
 using namespace std;
 
 vector<vector<int>> findCoordAround(vector<int> &center, int nbAround) {
@@ -123,4 +127,48 @@ void addPointToFindPoints(vector<int> &center, vector<vector<int>> &find, int* c
         if (finalCoord[i] > MAX_COORD_VALUE || finalCoord[i] < MIN_COORD_VALUE) return;
     }
     find.push_back(finalCoord);
+}
+
+vector<Point*> getNPlusProche(vector<Point*> points, Point pts, int nbVoisin) {
+    vector<Point*> selectedPts;
+    vector<double> dists;
+    int IdxMax=0;
+    double distMax=0;
+    int i;
+    if (nbVoisin>=points.size()) {
+        cout << "nombre de voisin plus élevé que le nombre de point";
+        exit(1);
+    }
+    for (i=0; i<nbVoisin; i++) {
+        double dist = pts.getDistFrom(points[i]);
+        selectedPts.push_back(points[i]);
+        dists.push_back(dist);
+        if (dist > distMax) {
+            IdxMax = i;
+            distMax = dist;
+        }
+    }
+    for (int i=selectedPts.size(); i<points.size(); i++) {
+        double dist = pts.getDistFrom(points[i]);
+        if (dist < distMax) {
+            selectedPts[IdxMax] = points[i];
+            dists[IdxMax] = dist;
+            IdxMax = getIndexMaximum(dists);
+            distMax = dists[IdxMax];
+        }
+    }
+    return selectedPts;
+}
+
+int getIndexMaximum(vector<double> dist) {
+    const int size = dist.size();
+    double max = 0;
+    int idx = 0;
+    for (int i=0; i<size; i++) {
+        if (max < dist[i]) {
+            idx = i;
+            max = dist[i];
+        }
+    }
+    return idx;
 }

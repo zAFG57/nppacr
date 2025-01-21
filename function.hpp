@@ -10,3 +10,6 @@ void getNCoordDifferente(vector<int> &center, vector<vector<int>> &find, int nbD
 void getCompletVariationOfCoord(vector<int> &center, vector<vector<int>> &find, vector<int> &partialCoord);
 void getPermutationOfCoord(vector<int> &center, vector<vector<int>> &find, vector<int> &coord);
 void addPointToFindPoints(vector<int> &center, vector<vector<int>> &find, int* coord);
+
+vector<Point*> getNPlusProche(vector<Point*> points, Point pts, int nbVoisin);
+int getIndexMaximum(vector<double> dist);
