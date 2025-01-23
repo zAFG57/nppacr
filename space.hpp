@@ -27,5 +27,6 @@ class Space {
         Space(int nbDimention);
         ~Space();
         void AddPts(Point* pts);
+        vector<double> getValFromPoint(Point* pts, int nbVoisin);
         void updatePts(Point* pts, int nbVoisin);
 };

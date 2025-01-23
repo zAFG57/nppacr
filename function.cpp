@@ -129,18 +129,18 @@ void addPointToFindPoints(vector<int> &center, vector<vector<int>> &find, int* c
     find.push_back(finalCoord);
 }
 
-vector<Point*> getNPlusProche(vector<Point*> points, Point pts, int nbVoisin) {
+vector<Point*> getNPlusProche(vector<Point*> points, Point *pts, int nbVoisin) {
     vector<Point*> selectedPts;
     vector<double> dists;
     int IdxMax=0;
     double distMax=0;
     int i;
-    if (nbVoisin>=points.size()) {
-        cout << "nombre de voisin plus élevé que le nombre de point";
+    if (nbVoisin>points.size()) {
+        cout << "nombre de voisin plus eleve que le nombre de point";
         exit(1);
     }
     for (i=0; i<nbVoisin; i++) {
-        double dist = pts.getDistFrom(points[i]);
+        double dist = pts->getDistFrom(points[i]);
         selectedPts.push_back(points[i]);
         dists.push_back(dist);
         if (dist > distMax) {
@@ -149,7 +149,7 @@ vector<Point*> getNPlusProche(vector<Point*> points, Point pts, int nbVoisin) {
         }
     }
     for (int i=selectedPts.size(); i<points.size(); i++) {
-        double dist = pts.getDistFrom(points[i]);
+        double dist = pts->getDistFrom(points[i]);
         if (dist < distMax) {
             selectedPts[IdxMax] = points[i];
             dists[IdxMax] = dist;

@@ -1,4 +1,15 @@
-/*class Point;
+#ifndef POINT_H
+#define POINT_H
+#include "point.hpp"
+#endif
+#ifndef VECTOR_H
+#define VECTOR_H
+#include <vector>
+#endif
+#ifndef IOSTREAM_H
+#define IOSTREAM_H
+#include <iostream>
+#endif
 
 bool load_image(vector<unsigned char>& image, const string& filname, int& x, int& y);
 
@@ -25,4 +36,4 @@ class Image {
         void toVectorExeptWhite(vector<Point*> &allPts);
         void saveImage(const string& file);
         void reLoadImage(vector<Point*> pts);
-};*/
+};

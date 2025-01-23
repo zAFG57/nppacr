@@ -1,4 +1,4 @@
-/*#ifndef IOSTREAM_H
+#ifndef IOSTREAM_H
 #define IOSTREAM_H
 #include <iostream>
 #endif
@@ -6,8 +6,6 @@
 #define VECTOR_H
 #include <vector>
 #endif
-using namespace std;
-
 #ifndef IMAGE_H
 #define IMAGE_H
 #include "image.hpp"
@@ -16,6 +14,10 @@ using namespace std;
 #define POINT_H
 #include "point.hpp"
 #endif
+
+
+using namespace std;
+
 
 extern "C" {
     #define STB_IMAGE_IMPLEMENTATION
@@ -135,12 +137,13 @@ void Image::writePixel(int x, int y, int n, unsigned char val) {
 }
 
 void Image::reLoadImage(vector<Point*> pts) {
+    vector<double> coord;
+    vector<double> color;
     for (int i=0; i<pts.size(); i++) {
-        Point* p = pts[i];
-        vector<double> coord = p->getCoord();
-        vector<double> color = p->getVal();
+        coord = pts[i]->getCoord();
+        color = pts[i]->getVal();
         this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),0,static_cast<unsigned char>(static_cast<int>(round(color[0]))));
         this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),1,static_cast<unsigned char>(static_cast<int>(round(color[1]))));
         this->writePixel(static_cast<int>(round(coord[0])),static_cast<int>(round(coord[1])),2,static_cast<unsigned char>(static_cast<int>(round(color[2]))));
     }
-}*/
+}

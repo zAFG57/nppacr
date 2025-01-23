@@ -26,34 +26,26 @@
 #define ALGO_H
 #include <algorithm>
 #endif
+#ifndef POINT_H
+#define POINT_H
+#include "point.hpp"
+#endif
+#ifndef IMAGE_H
+#define IMAGE_H
+#include "image.hpp"
+#endif
+#ifndef INFER_IMAGE_H
+#define INFER_IMAGE_H
+#include "inferImage.hpp"
+#endif
 using namespace std;
 
 int main () {
-    /*Space* space = new Space(2);
-    vector<double> coord = {1,1};
-    Point* pts = new Point(coord);
-    space->AddPts(pts);*/
-
-    vector<int> center = {5,5,5,5,5,5,5,5};
-    vector<vector<int>> pts = findCoordAround(center,2);
-    cout << pts.size() << " points trouve\n";
-    vector<int> f = {};
-    int variant;
-    int puissance;
-    for (int i=0; i<pts.size(); i++) {
-        variant = 0;
-        puissance = 1;
-        for (int y=pts[i].size()-1; y>=0; y--) {
-            variant += pts[i][y] * puissance;
-            puissance = puissance * 10;
-        }
-        f.push_back(variant);
-    }
-    
-    sort(f.begin(),f.end());
-
-    for (int i=0; i<f.size(); i++) {
-        //cout << f[i] << "\n";
-    }
+    Image* img = new Image("content/original.png");
+    InferImage* infer = new InferImage(img,"content/newAlgo.png");
+    cout << "before" << endl;
+    infer->doYourJob();
+    cout << "Saving image" << endl;
+    infer->saveImage();
     return 0;
 }

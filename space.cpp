@@ -63,8 +63,6 @@ void Space::addSubSpace(vector<double> &coord) {
 Space::Space(int nbDimention) {
     this->allSubSpace = {};
     this->initializeSubSpace(nbDimention);
-    cout << "Space && SubSpace initialise \n";
-    cout << "Nb SubSpace: " << this->allSubSpace.size() << "\n";
 }
 
 Space::~Space() {}
@@ -80,9 +78,12 @@ int Space::findIndex(Point* pts) {
     double step = MAX_COORD_VALUE/NB_SUB_DIVISION;
     bool cond = true;
     for (int i=0; i<size; i++) {
+        cout << coord[i] << endl;
         cond = cond && coord[i] == 1;
         idxSubSpace += floor(coord[i]/step) * pow(NB_SUB_DIVISION,size-i-1);
     }
+    cout << cond ? this->allSubSpace.size()-1 : idxSubSpace ;
+    cout << endl;
     return cond ? this->allSubSpace.size()-1 : idxSubSpace;
 }
 
@@ -121,6 +122,7 @@ vector<SubSpace> Space::getsubSpaceAroudPoint(Point* pts, int nbVoisin) {
     return subspaces;
 }
 
+
 void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &corner, int nbVoisin) {
     int nbPts = 0;
     if (subSpaceIdx.size() == 1) {
@@ -129,7 +131,30 @@ void Space::getSubSpaceAroundSubSpace(vector<int> &subSpaceIdx, vector<int> &cor
     }
 }
 
-void Space::updatePts(Point* pts, int nbVoisin) {
+vector<double> Space::getValFromPoint(Point* pts, int nbVoisin) {
     vector<SubSpace> subSpaces = this->getsubSpaceAroudPoint(pts,nbVoisin);
-    // get the point and then get the val then update point then return
+    vector<Point*> points = {};
+    for (int i=0; i<subSpaces.size(); i++) {
+        vector<Point*> pts = subSpaces[i].getAllPts();
+        for (int y=0; y<pts.size(); y++) {
+            points.push_back(pts[y]);
+        }
+    }
+    vector<Point*> selectedPts = getNPlusProche(points,pts,nbVoisin);
+    vector<double> val = selectedPts[0]->getVal();
+    for (int i=1; i<selectedPts.size(); i++) {
+        vector<double> valTmp = selectedPts[i]->getVal();
+        for (int y=0; y<val.size(); y++) {
+            val[y] += valTmp[y];
+        }
+    }
+    for (int i=0; i<val.size(); i++) {
+        val[i] = val[i]/nbVoisin;
+    }
+    return val;
+}
+
+void Space::updatePts(Point* pts, int nbVoisin) {
+    pts->setVal(this->getValFromPoint(pts,nbVoisin));
+    this->allSubSpace[this->findIndex(pts)]->addPts(pts);
 }
